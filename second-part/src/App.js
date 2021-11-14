@@ -18,18 +18,19 @@ const useWeather = () => {
         }
         return () => clearInterval(interval)
     }, [City])
+    console.log(City)
 
-
-    return [Weather, setCity]
+    return [Weather, City, setCity]
 }
 
 function App() {
-    const [Weather, setCity] = useWeather()
+    const [Weather, City, setCity] = useWeather()
 
     return (
         <div>
-            <div style={{maxWidth:"400px"}}>
-                <select className="form-select" onChange={e => setCity(e.target.value)}>
+            <div className="form-group col-md-4 col-lg-3" style={{ backgroundColor: "#fff", padding: "10px", borderRadius: "10px", margin: "10px" }}>
+                <label htmlFor="select-city">Select City</label>
+                <select className="form-select" name="select-city" onChange={e => setCity(e.target.value)}>
                     <option value={false}>Select city</option>
                     <option value="Munich,de">Munchen</option>
                     <option value="London,gb">London</option>
@@ -37,16 +38,20 @@ function App() {
             </div>
 
             <div className="d-flex justify-content-center">
-                <table className="table table-striped" style={{maxWidth: '1000px'}}>
-                    <thead className="thead-light">
-                        <th>Date</th>
-                        <th>Humidity</th>
-                        <th>Temperature</th>
-                    </thead>
-                    <tbody>
-                        {Weather.map(row => <tr><td>{row.dt_txt}</td><td>{row.main.humidity}</td><td>{row.main.temp}</td></tr>)}
-                    </tbody>
-                </table>
+                {(Weather.length > 0 && City !== "false") &&
+                    <table className="table table-striped" style={{ maxWidth: '1000px' }}>
+                        <thead className="thead-light">
+                            <tr>
+                                <th>Date</th>
+                                <th>Humidity</th>
+                                <th>Temperature</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {Weather.map((row, index) => <tr key={index}><td>{row.dt_txt}</td><td>{row.main.humidity}</td><td>{row.main.temp}</td></tr>)}
+                        </tbody>
+                    </table>
+                }
             </div>
         </div>
     );

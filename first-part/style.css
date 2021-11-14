@@ -20,6 +20,7 @@ header {
     position: fixed;
     top: 0;
     width: 97%;
+    gap: 10px;
 }
 
 .left-header {
@@ -148,6 +149,7 @@ input[type="text"] {
     gap: 10px;
     padding: 0 20px;
     width: 25%;
+    max-width: max-content;
 }
 
 .logout {
@@ -166,6 +168,18 @@ input[type="text"] {
 }
 .mobile {
     display: none;
+}
+
+@media only screen and (max-width: 1200px) {
+    .left-header{
+        width: 75%;
+    }
+    #search-text{
+        display: none;
+    }
+    .search-form{
+        width: 40%;
+    }
 }
 
 @media only screen and (max-width: 768px) {
